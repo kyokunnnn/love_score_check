@@ -1,8 +1,10 @@
+# gitで管理したくないファイルを定義する
 # 環境変数（APIキーなど）
 .env
 .env.local
 
 # Node.jsのライブラリ
+# 済み
 node_modules/
 
 # ビルドフォルダー

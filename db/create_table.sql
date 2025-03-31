@@ -58,9 +58,9 @@ CREATE TABLE quiz_results (
   id INT PRIMARY KEY AUTO_INCREMENT, -- 解答履歴ID
   quiz_id INT NOT NULL, -- クイズID(外部キー)
   selected_choice_id INT NOT NULL,  -- 選択肢ID(外部キー)
-  is_correct BOOLEAN NOT NULL,  -- 正解か否か
+  is_correct BOOLEAN NOT NULL,  -- 正解か否か(正解1,不正解0)
   answered_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 解答日時
-  session_id VARCHAR(50) NOT NULL, -- セッションID
+  session_id VARCHAR(50) NULL, -- セッションID(開発段階なのでNULL良い)
   FOREIGN KEY (quiz_id) REFERENCES questions(id) ON DELETE CASCADE,
   FOREIGN KEY (selected_choice_id) REFERENCES quiz_choices(id) ON DELETE CASCADE
 );
@@ -69,6 +69,7 @@ CREATE TABLE quiz_results (
 CREATE TABLE site_feedbacks (
   id INT PRIMARY KEY AUTO_INCREMENT, -- フィードバックID
   rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),  -- 評価(1~5)
+  user_name VARCHAR(50), --ユーザー名
   user_id INT NOT NULL,  -- まだ未定(外部キー)
   comment_text TEXT, -- 本文
   submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- フィードバックした日時

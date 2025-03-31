@@ -12,7 +12,7 @@ SELECT * FROM categories;
 // questionsテーブル
 INSERT INTO questions (text, category, status) VALUES
 ('初めましての待ち合わせには早めに到着する?', 4, 0),
-('2人で声をかける時は左右から挟み込むように話しかける', 1, 0),
+('2人(コンビ)で声をかける時にやってはいけないことは？', 1, 0),
 ('自分の鍛えられた身体の写真をプロフィールに使うべき？', 3, 0),
 ('クラブでは踊りまくる方が良い？', 4, 0);
 
@@ -32,6 +32,18 @@ INSERT INTO quiz_choices (quiz_id, choice_text) VALUES
 (1, '5分前に到着する'),
 (1, '30分前に到着する'),
 (1, '5分遅れで到着する'),
-(1, '30分遅れで到着する');
+(1, '30分遅れで到着する'),
+(2, '左右から挟み込むように声をかける'),
+(2, '真正面から2人で声をかける'),
+(2, '左右どちらか片側から2人で声をかける'),
+(2, '最初に片方が声を賭けに行ってからその後もう一人が声をかけに行く');
 
 SELECT * FROM quiz_choices;
+
+// quiz_resultsテーブル
+// クイズ結果を管理するテーブル
+INSERT INTO quiz_results (quiz_id, selected_choice_id, is_correct) VALUES
+(1, 3, true),
+(2, 2, false);
+
+SELECT * FROM quiz_results;

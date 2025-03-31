@@ -14,4 +14,17 @@ router.get("/", async (_, res) => {
   }
 });
 
+// 📌 特定の答えを取得
+router.get("/:id", async (req, res) => {
+  try {
+    const [rows] = await pool.query("SELECT * FROM answers WHERE id = ?", [
+      req.params.id,
+    ]);
+    res.json(rows);
+  } catch (error) {
+    console.error("Database error:", error);
+    res.status(500).json({ error: "Database error" });
+  }
+});
+
 export default router;

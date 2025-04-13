@@ -2,6 +2,7 @@ import { Router } from "express";
 import questionsRouter from "./questions";
 import answersRouter from "./answers";
 import quizChoices from "./quizChoices";
+import quizResults from "./quizResults";
 
 const router = Router();
 
@@ -9,5 +10,6 @@ const router = Router();
 router.use("/questions", questionsRouter);
 router.use("/answers", answersRouter);
 router.use("/quiz-choices", quizChoices);
+router.use("/quiz-results", quizResults);
 
 export default router;

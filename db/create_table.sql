@@ -47,6 +47,7 @@ CREATE TABLE quiz_choices (
   id INT PRIMARY KEY AUTO_INCREMENT, -- 選択肢ID
   quiz_id INT NOT NULL, -- クイズID(外部キー)
   choice_text VARCHAR(255) NOT NULL, -- 選択肢の文章
+  is_correct BOOLEAN NOT NULL,  -- 正解か否か(正解1,不正解0)
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 作成日時
   updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  -- 更新日時
   deletedAt TIMESTAMP NULL,  -- ソフトデリート用
@@ -58,7 +59,6 @@ CREATE TABLE quiz_results (
   id INT PRIMARY KEY AUTO_INCREMENT, -- 解答履歴ID
   quiz_id INT NOT NULL, -- クイズID(外部キー)
   selected_choice_id INT NOT NULL,  -- 選択肢ID(外部キー)
-  is_correct BOOLEAN NOT NULL,  -- 正解か否か(正解1,不正解0)
   answered_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 解答日時
   session_id VARCHAR(50) NULL, -- セッションID(開発段階なのでNULL良い)
   FOREIGN KEY (quiz_id) REFERENCES questions(id) ON DELETE CASCADE,

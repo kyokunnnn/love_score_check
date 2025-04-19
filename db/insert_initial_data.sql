@@ -28,22 +28,22 @@ SELECT * FROM answers;
 
 // quiz_choicesテーブル
 // 選択肢を管理するテーブル
-INSERT INTO quiz_choices (quiz_id, choice_text) VALUES
-(1, '5分前に到着する'),
-(1, '30分前に到着する'),
-(1, '5分遅れで到着する'),
-(1, '30分遅れで到着する'),
-(2, '左右から挟み込むように声をかける'),
-(2, '真正面から2人で声をかける'),
-(2, '左右どちらか片側から2人で声をかける'),
-(2, '最初に片方が声を賭けに行ってからその後もう一人が声をかけに行く');
+INSERT INTO quiz_choices (quiz_id, choice_text, is_correct) VALUES
+(1, '5分前に到着する', true),
+(1, '30分前に到着する', false),
+(1, '5分遅れで到着する', false),
+(1, '30分遅れで到着する', false),
+(2, '左右から挟み込むように声をかける', true),
+(2, '真正面から2人で声をかける', false),
+(2, '左右どちらか片側から2人で声をかける', false),
+(2, '最初に片方が声を賭けに行ってからその後もう一人が声をかけに行く', false);
 
 SELECT * FROM quiz_choices;
 
 // quiz_resultsテーブル
 // クイズ結果を管理するテーブル
-INSERT INTO quiz_results (quiz_id, selected_choice_id, is_correct) VALUES
-(1, 3, true),
-(2, 2, false);
+INSERT INTO quiz_results (quiz_id, selected_choice_id) VALUES
+(1, 3),
+(2, 2);
 
 SELECT * FROM quiz_results;

@@ -1,18 +1,27 @@
-import { useNavigate } from "react-router-dom";
-import { Choice, QuestionWithChoices } from "../type/question";
+import { useNavigate, useParams } from "react-router-dom";
+import { Choice, QuestionWithChoices } from "../type/quizQuestion";
+import { useEffect, useState } from "react";
 
-type QuizQuestionProps = {
-  question: QuestionWithChoices;
-};
-
-const QuizQuestion = ({ question }: QuizQuestionProps) => {
+const QuizQuestion = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const [question, setQuestion] = useState<QuestionWithChoices | null>(null);
 
+  useEffect(() => {
+    fetch(`http://localhost:3000/api/questions/${id}`)
+      .then((res) => res.json())
+      .then((data) => setQuestion(data));
+  }, [id]);
+
+  if (!question) return <p>読み込み中...</p>;
+  
   const handleChoiceClick = (choice: Choice) => {
-    navigate("/result", {
+    navigate("/quiz/result", {
       state: {
+        quizId: question.questionId,
         questionText: question.questionText,
         selectedChoice: choice.text,
+        isCorrect: choice.isCorrect
       },
     });
   };

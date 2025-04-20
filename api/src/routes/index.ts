@@ -9,7 +9,7 @@ const router = Router();
 // エンドポイントのルート
 router.use("/questions", questionsRouter);
 router.use("/answers", answersRouter);
-router.use("/quiz-choices", quizChoices);
+router.use("/choices", quizChoices);
 router.use("/quiz-results", quizResults);
 
 export default router;

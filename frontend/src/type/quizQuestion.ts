@@ -1,5 +1,5 @@
 export type QuestionWithChoices = {
-  id: number;
+  questionId: number;
   questionText: string;
   choices: {
     id: number;
@@ -11,4 +11,5 @@ export type QuestionWithChoices = {
 export type Choice = {
   id: number;
   text: string;
+  isCorrect: boolean;
 };

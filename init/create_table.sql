@@ -1,12 +1,5 @@
-
-// データベースの作成
-CREATE DATABASE love_score_checker;
-
-// データベースを使う
-USE love_score_checker;
-
-// テーブル作成
-// categoriesテーブル
+-- テーブル作成
+-- categoriesテーブル
 CREATE TABLE categories (
   id INT PRIMARY KEY AUTO_INCREMENT, -- カテゴリーID
   name VARCHAR(255) NOT NULL,
@@ -15,7 +8,7 @@ CREATE TABLE categories (
   deletedAt TIMESTAMP NULL  -- ソフトデリート用（NULLなら削除されていない）
 );
 
-// questionsテーブル
+-- questionsテーブル
 CREATE TABLE questions (
   id INT PRIMARY KEY AUTO_INCREMENT, -- クイズID
   text VARCHAR(255) NOT NULL,
@@ -27,8 +20,8 @@ CREATE TABLE questions (
   FOREIGN KEY (category) REFERENCES categories(id) ON DELETE CASCADE
 );
 
-// answersテーブル
-// 答えの確認を出す画面で表示 ※選択肢ではない
+-- answersテーブル
+-- 答えの確認を出す画面で表示 ※選択肢ではない
 CREATE TABLE answers (
   id INT PRIMARY KEY AUTO_INCREMENT, -- アンサーID
   quiz_id INT NOT NULL, -- クイズID(外部キー)
@@ -41,8 +34,8 @@ CREATE TABLE answers (
   FOREIGN KEY (category) REFERENCES categories(id) ON DELETE CASCADE
 );
 
-// quiz_choicesテーブル
-// 選択肢
+-- quiz_choicesテーブル
+-- 選択肢
 CREATE TABLE quiz_choices (
   id INT PRIMARY KEY AUTO_INCREMENT, -- 選択肢ID
   quiz_id INT NOT NULL, -- クイズID(外部キー)
@@ -54,7 +47,7 @@ CREATE TABLE quiz_choices (
   FOREIGN KEY (quiz_id) REFERENCES questions(id) ON DELETE CASCADE
 );
 
-// quiz_resultsテーブル
+-- quiz_resultsテーブル
 CREATE TABLE quiz_results (
   id INT PRIMARY KEY AUTO_INCREMENT, -- 解答履歴ID
   quiz_id INT NOT NULL, -- クイズID(外部キー)
@@ -65,12 +58,13 @@ CREATE TABLE quiz_results (
   FOREIGN KEY (selected_choice_id) REFERENCES quiz_choices(id) ON DELETE CASCADE
 );
 
-// site_feedbacksテーブル
+-- site_feedbacksテーブル
 CREATE TABLE site_feedbacks (
   id INT PRIMARY KEY AUTO_INCREMENT, -- フィードバックID
   rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),  -- 評価(1~5)
-  user_name VARCHAR(50), --ユーザー名
+  user_name VARCHAR(50), -- ユーザー名
   user_id INT NOT NULL,  -- まだ未定(外部キー)
   comment_text TEXT, -- 本文
   submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- フィードバックした日時
 );
+

@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { Choice, QuestionWithChoices } from "../type/quizQuestion";
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Choice, QuestionWithChoices } from '../type/quizQuestion';
 
 const QuizByCategoryPage = () => {
   const navigate = useNavigate();
@@ -16,15 +16,15 @@ const QuizByCategoryPage = () => {
       .then(setQuizzes);
   }, [categoryId]);
 
-  console.log('取得したクイズ群', quizzes)
+  console.log('取得したクイズ群', quizzes);
   if (quizzes.length === 0) return <p>読み込み中...</p>;
 
   const quiz = quizzes[currentIndex];
 
   const handleChoiceClick = (choice: Choice) => {
     const quiz = quizzes[currentIndex];
-  
-    navigate("/quiz/result", {
+
+    navigate('/quiz/result', {
       state: {
         quizId: quiz.questionId,
         questionText: quiz.questionText,
@@ -33,8 +33,6 @@ const QuizByCategoryPage = () => {
       },
     });
   };
-  
-  
 
   const handleNext = () => {
     setSelected(null);
@@ -51,9 +49,7 @@ const QuizByCategoryPage = () => {
       <ul>
         {quiz.choices.map((choice) => (
           <li key={choice.id}>
-            <button
-              onClick={() => handleChoiceClick(choice)}
-            >
+            <button onClick={() => handleChoiceClick(choice)}>
               {choice.text}
             </button>
           </li>
@@ -66,7 +62,7 @@ const QuizByCategoryPage = () => {
           onClick={handleNext}
           disabled={currentIndex + 1 >= quizzes.length}
         >
-          {currentIndex + 1 < quizzes.length ? "次へ" : "終了"}
+          {currentIndex + 1 < quizzes.length ? '次へ' : '終了'}
         </button>
       )}
     </div>

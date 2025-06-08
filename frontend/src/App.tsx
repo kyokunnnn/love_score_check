@@ -1,8 +1,8 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import CategorySelectPage from "./pages/CategorySelectPage";
-import QuizResult from "./pages/QuizResult";
-import QuizByCategoryPage from "./pages/QuizByCategoryPage";
-import MainPage from "./pages/MainPage";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import CategorySelectPage from './pages/CategorySelectPage';
+import QuizResult from './pages/QuizResult';
+import QuizByCategoryPage from './pages/QuizByCategoryPage';
+import MainPage from './pages/MainPage';
 
 const App = () => {
   return (
@@ -18,6 +18,3 @@ const App = () => {
 };
 
 export default App;
-
-
-

@@ -1,7 +1,7 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 const MainPage = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-white">
@@ -13,7 +13,7 @@ const MainPage = () => {
         スタート
       </button>
     </div>
-  )
-}
+  );
+};
 
-export default MainPage
+export default MainPage;

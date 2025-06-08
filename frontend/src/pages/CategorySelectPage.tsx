@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const CategorySelectPage = () => {
   const navigate = useNavigate();
@@ -13,7 +13,9 @@ const CategorySelectPage = () => {
 
   return (
     <div className="p-4">
-      <h1 className="text-xl font-bold mb-4">どのカテゴリーのクイズに挑戦する？</h1>
+      <h1 className="text-xl font-bold mb-4">
+        どのカテゴリーのクイズに挑戦しますか？
+      </h1>
       <div className="grid grid-cols-2 gap-4">
         {categories.map((cat: any) => (
           <button

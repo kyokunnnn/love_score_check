@@ -1,6 +1,6 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { Choice, QuestionWithChoices } from "../type/quizQuestion";
-import { useEffect, useState } from "react";
+import { useNavigate, useParams } from 'react-router-dom';
+import { Choice, QuestionWithChoices } from '../type/quizQuestion';
+import { useEffect, useState } from 'react';
 
 const QuizQuestion = () => {
   const navigate = useNavigate();
@@ -14,14 +14,14 @@ const QuizQuestion = () => {
   }, [id]);
 
   if (!question) return <p>読み込み中...</p>;
-  
+
   const handleChoiceClick = (choice: Choice) => {
-    navigate("/quiz/result", {
+    navigate('/quiz/result', {
       state: {
         quizId: question.questionId,
         questionText: question.questionText,
         selectedChoice: choice.text,
-        isCorrect: choice.isCorrect
+        isCorrect: choice.isCorrect,
       },
     });
   };

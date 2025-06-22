@@ -4,11 +4,8 @@ import { Choice, QuestionWithChoices } from '../type/quizQuestion';
 
 const QuizByCategoryPage = () => {
   const navigate = useNavigate();
-  const { categoryId } = useParams();
+  const { categoryId, questionIndex } = useParams();
   const [quizzes, setQuizzes] = useState<QuestionWithChoices[]>([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [_, setSelected] = useState<number | null>(null);
-  const [showAnswer, setShowAnswer] = useState(false);
 
   useEffect(() => {
     fetch(`http://localhost:3000/api/questions?category=${categoryId}`)
@@ -16,33 +13,29 @@ const QuizByCategoryPage = () => {
       .then(setQuizzes);
   }, [categoryId]);
 
+  const currentIndex = Number(questionIndex) || 0;
+  const quiz = quizzes[currentIndex];
+
   console.log('取得したクイズ群', quizzes);
   if (quizzes.length === 0) return <p>読み込み中...</p>;
 
-  const quiz = quizzes[currentIndex];
-
   const handleChoiceClick = (choice: Choice) => {
-    const quiz = quizzes[currentIndex];
-
     navigate('/quiz/result', {
       state: {
         quizId: quiz.questionId,
         questionText: quiz.questionText,
         selectedChoice: choice.text,
         isCorrect: choice.isCorrect,
+        quizzes, // 全体のクイズ配列
+        currentIndex, // 現在のインデックス
+        categoryId, // 必要ならカテゴリーIDも
       },
     });
   };
 
-  const handleNext = () => {
-    setSelected(null);
-    setShowAnswer(false);
-    setCurrentIndex((prev) => prev + 1);
-  };
-
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">
+    <div>
+      <h2>
         Q{currentIndex + 1}: {quiz.questionText}
       </h2>
 
@@ -55,16 +48,6 @@ const QuizByCategoryPage = () => {
           </li>
         ))}
       </ul>
-
-      {showAnswer && (
-        <button
-          className="mt-4 p-2 bg-blue-500 text-white rounded"
-          onClick={handleNext}
-          disabled={currentIndex + 1 >= quizzes.length}
-        >
-          {currentIndex + 1 < quizzes.length ? '次へ' : '終了'}
-        </button>
-      )}
     </div>
   );
 };

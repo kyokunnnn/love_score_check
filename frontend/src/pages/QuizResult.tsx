@@ -35,11 +35,16 @@ const QuizResult = () => {
   }
 
   const handleNext = () => {
-    const nextId = Number(state.quizId) + 1;
-    if (nextId > 10) {
-      navigate('/end');
+    const nextIndex = state.currentIndex + 1;
+    if (nextIndex < state.quizzes.length) {
+      navigate(`/quiz/${state.categoryId}/${nextIndex}`, {
+        state: {
+          ...state,
+          currentIndex: nextIndex,
+        },
+      });
     } else {
-      navigate(`/quiz/${nextId}`);
+      navigate('/end');
     }
   };
 
@@ -49,9 +54,11 @@ const QuizResult = () => {
       <h2>{state.isCorrect ? '⭕ 正解！' : '❌ 不正解...'}</h2>
       <p>問題: {state.questionText}</p>
       <p>あなたの答え: {state.selectedChoice}</p>
-      {correctChoice && <p>正解の選択肢：{correctChoice.text}</p>}
+      {correctChoice && <p>正解：{correctChoice.text}</p>}
       {answer && <p>解説：{answer.text}</p>}
-      <button onClick={() => navigate('/quiz/1')}>トップに戻る</button>
+      <button onClick={() => navigate('/category-select')}>
+        カテゴリー選択画面に戻る
+      </button>
       <button onClick={handleNext}>次の問題へ →</button>
     </div>
   );

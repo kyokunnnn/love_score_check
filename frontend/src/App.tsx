@@ -12,7 +12,10 @@ const App = () => {
         <Route path="/" element={<MainPage />} />
         <Route path="about" element={<AboutPage />} />
         <Route path="/category-select" element={<CategorySelectPage />} />
-        <Route path="/quiz/:categoryId" element={<QuizByCategoryPage />} />
+        <Route
+          path="/quiz/:categoryId/:questionIndex"
+          element={<QuizByCategoryPage />}
+        />
         <Route path="/quiz/result" element={<QuizResult />} />
       </Routes>
     </Router>

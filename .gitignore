@@ -1,0 +1,16 @@
+# プロジェクト全体無視設定
+
+# 環境変数
+.env
+api/.env
+frontend/.env
+
+# Docker関連
+*.pid
+*.sock
+
+# Macのゴミファイル
+.DS_Store
+
+# その他隠しファイル
+Thumbs.db

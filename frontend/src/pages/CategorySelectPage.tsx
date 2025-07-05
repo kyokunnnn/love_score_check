@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import styles from './CategorySelectPage.module.css';
 
 const CategorySelectPage = () => {
   const navigate = useNavigate();
@@ -12,17 +13,14 @@ const CategorySelectPage = () => {
   }, []);
 
   return (
-    <div className="p-4">
-      <h1 className="text-xl font-bold mb-4">
-        どのカテゴリーのクイズに挑戦しますか？
-      </h1>
-      <div className="grid grid-cols-2 gap-4">
+    <div className={styles.container}>
+      <h1>どのカテゴリーのクイズに挑戦しますか？</h1>
+      <p>クイズには今の自分の正直で答えてください！</p>
+      <p>各カテゴリーランダムに5問の質問です</p>
+      <p>※今後さらに質問は追加予定です</p>
+      <div>
         {categories.map((cat: any) => (
-          <button
-            key={cat.id}
-            className="p-4 border rounded hover:bg-gray-100"
-            onClick={() => navigate(`/quiz/${cat.id}`)}
-          >
+          <button key={cat.id} onClick={() => navigate(`/quiz/${cat.id}/1`)}>
             {cat.name}
           </button>
         ))}

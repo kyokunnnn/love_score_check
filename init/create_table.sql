@@ -63,7 +63,6 @@ CREATE TABLE site_feedbacks (
   id INT PRIMARY KEY AUTO_INCREMENT, -- フィードバックID
   rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),  -- 評価(1~5)
   user_name VARCHAR(50), -- ユーザー名
-  user_id INT NOT NULL,  -- まだ未定(外部キー)
   comment_text TEXT, -- 本文
   submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- フィードバックした日時
 );

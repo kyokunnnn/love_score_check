@@ -4,6 +4,7 @@ import answersRouter from "./answers";
 import quizChoices from "./quizChoices";
 import quizResults from "./quizResults";
 import categories from "./categories";
+import feedbacks from "./siteFeedbacks";
 
 const router = Router();
 
@@ -13,5 +14,6 @@ router.use("/answers", answersRouter);
 router.use("/choices", quizChoices);
 router.use("/quiz-results", quizResults);
 router.use("/categories", categories);
+router.use("/feedbacks", feedbacks);
 
 export default router;

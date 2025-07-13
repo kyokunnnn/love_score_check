@@ -4,6 +4,7 @@ import QuizResult from './pages/QuizResult';
 import QuizByCategoryPage from './pages/QuizByCategoryPage';
 import MainPage from './pages/MainPage';
 import AboutPage from './pages/AboutPage';
+import SiteFeedbacks from './pages/SiteFeedbacks';
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
           element={<QuizByCategoryPage />}
         />
         <Route path="/quiz/result" element={<QuizResult />} />
+        <Route path="/site-feedbacks" element={<SiteFeedbacks />} />
       </Routes>
     </Router>
   );

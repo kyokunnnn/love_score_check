@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Choice, QuestionWithChoices } from '../type/quizQuestion';
+import { Home } from 'lucide-react';
+import styles from './QuizByCategoryPage.module.css';
 
 const QuizByCategoryPage = () => {
   const navigate = useNavigate();
@@ -48,6 +50,12 @@ const QuizByCategoryPage = () => {
           </li>
         ))}
       </ul>
+      <div className={styles.center_wrapper}>
+        <button className={styles.home_button} onClick={() => navigate('/')}>
+          <Home strokeWidth={1} />
+          ホームへ戻る
+        </button>
+      </div>
     </div>
   );
 };

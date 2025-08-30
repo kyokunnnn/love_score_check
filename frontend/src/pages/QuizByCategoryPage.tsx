@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Choice, QuestionWithChoices } from '../type/quizQuestion';
 import { Home } from 'lucide-react';
 import styles from './QuizByCategoryPage.module.css';
@@ -8,11 +8,34 @@ const QuizByCategoryPage = () => {
   const navigate = useNavigate();
   const { categoryId, questionIndex } = useParams();
   const [quizzes, setQuizzes] = useState<QuestionWithChoices[]>([]);
+  const { state } = useLocation() as { state?: { score?: number } };
+  const baseScore = state?.score ?? 0;
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/questions?category=${categoryId}`)
-      .then((res) => res.json())
-      .then(setQuizzes);
+    let cancelled = false;
+
+    (async () => {
+      const res = await fetch(
+        `http://localhost:3000/api/questions?category=${categoryId}`,
+      );
+      const data: QuestionWithChoices[] = await res.json();
+
+      // Fisher–Yatesでシャッフル
+      const a = [...data];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+
+      const LIMIT = 5;
+      const picked = a.slice(0, Math.min(LIMIT, a.length));
+
+      if (!cancelled) setQuizzes(picked);
+    })();
+
+    return () => {
+      cancelled = true;
+    };
   }, [categoryId]);
 
   const currentIndex = Number(questionIndex) || 0;
@@ -31,6 +54,7 @@ const QuizByCategoryPage = () => {
         quizzes, // 全体のクイズ配列
         currentIndex, // 現在のインデックス
         categoryId, // 必要ならカテゴリーIDも
+        score: baseScore, // スコアの計算
       },
     });
   };

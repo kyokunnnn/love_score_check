@@ -1,0 +1,11 @@
+.center_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home_button {
+  display: flex;
+  align-items: center; /* 横方向中央寄せ */
+  justify-content: center; /* 縦方向中央寄せ */
+}

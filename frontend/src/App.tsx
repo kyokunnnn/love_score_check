@@ -5,6 +5,7 @@ import QuizByCategoryPage from './pages/QuizByCategoryPage';
 import MainPage from './pages/MainPage';
 import AboutPage from './pages/AboutPage';
 import SiteFeedbacks from './pages/SiteFeedbacks';
+import EndPage from './pages/EndPage';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
           element={<QuizByCategoryPage />}
         />
         <Route path="/quiz/result" element={<QuizResult />} />
+        <Route path="/end" element={<EndPage />} />
         <Route path="/site-feedbacks" element={<SiteFeedbacks />} />
       </Routes>
     </Router>

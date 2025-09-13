@@ -61,7 +61,7 @@ const QuizByCategoryPage = () => {
 
   return (
     <div>
-      <h2>
+      <h2 className={styles.question_text}>
         Q{currentIndex + 1}: {quiz.questionText}
       </h2>
 

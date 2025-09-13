@@ -29,7 +29,8 @@ const MainPage = () => {
       </div>
       <div>
         <MessageCircleMore size={20} />
-        お問い合わせや感想は<a href="/site-feedbacks">こちら</a>から
+        お問い合わせや感想は<a href="/site-feedbacks">こちら</a>
+        からお願い致します
       </div>
     </div>
   );

@@ -6,6 +6,18 @@
 
 .home_button {
   display: flex;
-  align-items: center; /* 横方向中央寄せ */
-  justify-content: center; /* 縦方向中央寄せ */
+  align-items: center;
+  justify-content: center;
+}
+
+.question_text {
+  max-width: 720px;
+  width: 100%;
+  margin: 0;
+  text-align: left;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  hyphens: auto;
+  min-height: 6em;
 }

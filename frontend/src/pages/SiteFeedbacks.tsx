@@ -2,17 +2,20 @@ import { useState } from 'react';
 import axios from 'axios';
 import StarRating from '../components/StarRating';
 import styles from './SiteFeedbacks.module.css';
+import { useNavigate } from 'react-router-dom';
+import { Home } from 'lucide-react';
 
 const FeedbackForm = () => {
   const [rating, setRating] = useState<number>(5);
   const [userName, setUserName] = useState<string>('');
   const [commentText, setCommentText] = useState<string>('');
   const [message, setMessage] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3000/api/feedbacks', {
+      await axios.post('http://localhost:3000/api/feedbacks', {
         rating,
         user_name: userName,
         comment_text: commentText,
@@ -58,6 +61,10 @@ const FeedbackForm = () => {
       <button type="submit">送信</button>
 
       {message && <p>{message}</p>}
+      <button className={styles.home_button} onClick={() => navigate('/')}>
+        <Home strokeWidth={1} />
+        ホームへ戻る
+      </button>
     </form>
   );
 };

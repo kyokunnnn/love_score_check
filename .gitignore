@@ -1,16 +1,12 @@
-# プロジェクト全体無視設定
-
+# gitで管理したくないファイルを定義する
 # 環境変数
-.env
-api/.env
-frontend/.env
+**/.env
+**/.env.*
 
-# Docker関連
-*.pid
-*.sock
+# Node.jsのライブラリ
+**/node_modules/
 
-# Macのゴミファイル
-.DS_Store
+# ビルドフォルダー
+**/dist/
 
-# その他隠しファイル
-Thumbs.db
+**/.DS_Store

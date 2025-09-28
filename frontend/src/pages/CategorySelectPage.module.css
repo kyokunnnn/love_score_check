@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 横方向中央寄せ */
+  justify-content: center; /* 縦方向中央寄せ */
+  height: 100vh;
+}
+
+.home_button {
+  display: flex;
+  align-items: center; /* 横方向中央寄せ */
+  justify-content: center; /* 縦方向中央寄せ */
+}

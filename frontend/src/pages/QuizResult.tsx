@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Answer } from '../type/quizResult';
 import { Choice, QuestionWithChoices } from '../type/quizQuestion';
+import { http } from '../lib/http';
 
 const QuizResult = () => {
   const { state } = useLocation() as {
@@ -39,18 +40,19 @@ const QuizResult = () => {
 
     (async () => {
       try {
-        const [ansRes, correctRes] = await Promise.all([
-          fetch(`http://localhost:3000/api/answers/${quizId}`),
-          fetch(`http://localhost:3000/api/choices/correct-choice/${quizId}`),
+        const [{ data: answers }, { data: correct }] = await Promise.all([
+          http.get<Answer[]>(
+            `/api/answers/${encodeURIComponent(String(quizId))}`,
+          ),
+          http.get<Choice>(
+            `/api/choices/correct-choice/${encodeURIComponent(String(quizId))}`,
+          ),
         ]);
-
-        const ansJson = await ansRes.json();
-        const correctJson = await correctRes.json();
 
         if (!cancelled) {
           // API が配列返すなら data[0]、オブジェクトならそのまま
-          setAnswer(Array.isArray(ansJson) ? ansJson[0] : ansJson);
-          setCorrectChoice(correctJson ?? null);
+          setAnswer(Array.isArray(answers) ? answers[0] : answers);
+          setCorrectChoice(correct ?? null);
         }
       } catch (e) {
         if (!cancelled) {

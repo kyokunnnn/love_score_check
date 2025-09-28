@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import axios from 'axios';
 import StarRating from '../components/StarRating';
 import styles from './SiteFeedbacks.module.css';
 import { useNavigate } from 'react-router-dom';
 import { Home } from 'lucide-react';
+import { http } from '../lib/http';
 
 const FeedbackForm = () => {
   const [rating, setRating] = useState<number>(5);
@@ -15,7 +15,7 @@ const FeedbackForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:3000/api/feedbacks', {
+      await http.post('/api/feedbacks', {
         rating,
         user_name: userName,
         comment_text: commentText,

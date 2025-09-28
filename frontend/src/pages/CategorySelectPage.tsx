@@ -2,15 +2,22 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './CategorySelectPage.module.css';
 import { Home } from 'lucide-react';
+import { http } from '../lib/http';
+import { Category } from '../type/Category';
 
 const CategorySelectPage = () => {
   const navigate = useNavigate();
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/categories`)
-      .then((res) => res.json())
-      .then(setCategories);
+    (async () => {
+      try {
+        const { data } = await http.get<Category[]>('/api/categories');
+        setCategories(data);
+      } catch (e) {
+        console.error('カテゴリ取得に失敗:', e);
+      }
+    })();
   }, []);
 
   return (

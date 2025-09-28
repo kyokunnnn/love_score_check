@@ -3,6 +3,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Choice, QuestionWithChoices } from '../type/quizQuestion';
 import { Home } from 'lucide-react';
 import styles from './QuizByCategoryPage.module.css';
+import { http } from '../lib/http';
 
 const QuizByCategoryPage = () => {
   const navigate = useNavigate();
@@ -15,10 +16,10 @@ const QuizByCategoryPage = () => {
     let cancelled = false;
 
     (async () => {
-      const res = await fetch(
-        `http://localhost:3000/api/questions?category=${categoryId}`,
-      );
-      const data: QuestionWithChoices[] = await res.json();
+      // 推奨：params で渡す（自動エンコード）
+      const { data } = await http.get<QuestionWithChoices[]>('/api/questions', {
+        params: { category: String(categoryId) },
+      });
 
       // Fisher–Yatesでシャッフル
       const a = [...data];

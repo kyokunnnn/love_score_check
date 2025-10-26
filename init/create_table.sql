@@ -3,9 +3,9 @@
 CREATE TABLE categories (
   id INT PRIMARY KEY AUTO_INCREMENT, -- カテゴリーID
   name VARCHAR(255) NOT NULL,
-  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 作成日時
-  updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  -- 更新日時
-  deletedAt TIMESTAMP NULL  -- ソフトデリート用（NULLなら削除されていない）
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 作成日時
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  -- 更新日時
+  deleted_at TIMESTAMP NULL  -- ソフトデリート用（NULLなら削除されていない）
 );
 
 -- questionsテーブル
@@ -14,9 +14,9 @@ CREATE TABLE questions (
   text VARCHAR(255) NOT NULL,
   category INT NOT NULL, -- カテゴリーID(外部キー)
   status INT NOT NULL,  -- ステータス（例: 1=公開, 0=非公開）
-  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 作成日時
-  updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  -- 更新日時
-  deletedAt TIMESTAMP NULL,  -- ソフトデリート用（NULLなら削除されていない）
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 作成日時
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  -- 更新日時
+  deleted_at TIMESTAMP NULL,  -- ソフトデリート用（NULLなら削除されていない）
   FOREIGN KEY (category) REFERENCES categories(id) ON DELETE CASCADE
 );
 
@@ -27,9 +27,9 @@ CREATE TABLE answers (
   quiz_id INT NOT NULL, -- クイズID(外部キー)
   text VARCHAR(255) NOT NULL,
   category INT NOT NULL, -- カテゴリーID(外部キー)
-  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 作成日時
-  updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  -- 更新日時
-  deletedAt TIMESTAMP NULL,  -- ソフトデリート用（NULLなら削除されていない）
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 作成日時
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  -- 更新日時
+  deleted_at TIMESTAMP NULL,  -- ソフトデリート用（NULLなら削除されていない）
   FOREIGN KEY (quiz_id) REFERENCES questions(id) ON DELETE CASCADE,
   FOREIGN KEY (category) REFERENCES categories(id) ON DELETE CASCADE
 );
@@ -41,9 +41,9 @@ CREATE TABLE quiz_choices (
   quiz_id INT NOT NULL, -- クイズID(外部キー)
   choice_text VARCHAR(255) NOT NULL, -- 選択肢の文章
   is_correct BOOLEAN NOT NULL,  -- 正解か否か(正解1,不正解0)
-  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 作成日時
-  updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  -- 更新日時
-  deletedAt TIMESTAMP NULL,  -- ソフトデリート用
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 作成日時
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  -- 更新日時
+  deleted_at TIMESTAMP NULL,  -- ソフトデリート用
   FOREIGN KEY (quiz_id) REFERENCES questions(id) ON DELETE CASCADE
 );
 

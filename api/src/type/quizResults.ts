@@ -1,0 +1,1 @@
+export type quizResultInsertedIdRow = { id: number };

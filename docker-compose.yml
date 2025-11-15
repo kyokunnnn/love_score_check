@@ -1,21 +1,26 @@
-# version: "3.8"
+version: "3.8"
 services:
   db:
-    image: mysql:8.0
-    container_name: quiz-mysql
+    image: postgres:16
+    container_name: quiz-postgres
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_ROOT_HOST: '%'
-      # MYSQL_USER: ${MYSQL_USER}
-      # MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-love_score_check}
+      TZ: Asia/Tokyo
     ports:
-      - "3306:3306"
+      - "5432:5432"
     volumes:
-      - db-data:/var/lib/mysql
-      - ./init:/docker-entrypoint-initdb.d
-      - ./sql/my.cnf:/etc/mysql/conf.d/my.cnf
+      - pg-data:/var/lib/postgresql/data
+      # 初回起動時に DDL/seed を自動実行（*.sql / *.sh / *.sql.gz）
+      - ./pg-init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
 
 volumes:
-  db-data:
+  pg-data:
+

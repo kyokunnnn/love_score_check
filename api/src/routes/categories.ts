@@ -6,7 +6,7 @@ const router = Router();
 // 全てのカテゴリーを取得
 router.get("/", async (_, res) => {
   try {
-    const [rows] = await pool.query("SELECT * FROM categories");
+    const {rows} = await pool.query<CategoryResponse>("SELECT * FROM categories");
     res.json(rows);
   } catch (error) {
     console.error("Database error:", error);

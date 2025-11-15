@@ -20,18 +20,7 @@ const QuizByCategoryPage = () => {
       const { data } = await http.get<QuestionWithChoices[]>('/api/questions', {
         params: { category: String(categoryId) },
       });
-
-      // Fisher–Yatesでシャッフル
-      const a = [...data];
-      for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-      }
-
-      const LIMIT = 5;
-      const picked = a.slice(0, Math.min(LIMIT, a.length));
-
-      if (!cancelled) setQuizzes(picked);
+      if (!cancelled) setQuizzes(data);
     })();
 
     return () => {

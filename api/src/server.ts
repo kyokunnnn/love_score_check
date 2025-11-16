@@ -20,15 +20,32 @@ app.use(
 );
 
 // 許可するフロントのオリジン（URL）をホワイトリストで制御。
-// const allowlist = (process.env.CORS_ORIGINS ?? "http://localhost:5173")
-//   .split(",")
-//   .map((s) => s.trim());
-  app.use(
-    cors({
-      origin: true, // 何でも許可
-      credentials: true,
-    })
-  );
+const allowlist = (process.env.CORS_ORIGINS ?? "")
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
+
+app.use((req, res, next) => {
+  console.log("[CORS Check] Origin:", req.headers.origin);
+  next();
+});
+
+app.use(
+  cors({
+    origin(origin, cb) {
+      if (!origin) return cb(null, true); // ブラウザ以外のリクエストは許可
+
+      if (allowlist.includes(origin)) {
+        return cb(null, true);
+      }
+
+      console.warn("Blocked CORS origin:", origin);
+      return cb(new Error("Not allowed by CORS"));
+    },
+    credentials: true,
+  })
+);
+
   
 
 // クエリ/ボディの重複キー汚染を防止（?role=user&role=admin対策）

@@ -1,8 +1,14 @@
 import { Pool } from 'pg';
 
+const url = process.env.DATABASE_URL || '';
 const isProd = process.env.NODE_ENV === 'production';
+const host = (() => { try { return new URL(url).hostname; } catch { return '(bad URL)'; } })();
+
+console.log('[DB INIT]', { NODE_ENV: process.env.NODE_ENV, host, urlHasSSL: /\bsslmode=/.test(url) });
+
 export const pool = new Pool({
-  connectionString: process.env.DATABASE_URL, // 例: ローカル postgres://postgres:postgres@localhost:5432/love_score_check
-  ssl: isProd ? { rejectUnauthorized: false } : undefined, // 本番のみ（RenderはDSNに ?sslmode=require でもOK）
+  connectionString: url,
+  ssl: host === 'localhost' || host === '127.0.0.1' ? undefined : { rejectUnauthorized: false },
 });
-export default pool;
+
+console.log('[DB INIT] ssl set =', host === 'localhost' ? 'off(local)' : 'rejectUnauthorized:false');

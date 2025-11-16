@@ -1,7 +1,6 @@
 import { Pool } from 'pg';
 
 const url = process.env.DATABASE_URL || '';
-const isProd = process.env.NODE_ENV === 'production';
 const host = (() => { try { return new URL(url).hostname; } catch { return '(bad URL)'; } })();
 
 console.log('[DB INIT]', { NODE_ENV: process.env.NODE_ENV, host, urlHasSSL: /\bsslmode=/.test(url) });

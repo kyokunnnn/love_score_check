@@ -20,17 +20,16 @@ app.use(
 );
 
 // 許可するフロントのオリジン（URL）をホワイトリストで制御。
-const allowlist = (process.env.CORS_ORIGINS ?? "http://localhost:5173")
-  .split(",")
-  .map((s) => s.trim());
-app.use(
-  cors({
-    origin(origin, cb) {
-      if (!origin || allowlist.includes(origin)) cb(null, true);
-      else cb(new Error("Not allowed by CORS"));
-    },
-  })
-);
+// const allowlist = (process.env.CORS_ORIGINS ?? "http://localhost:5173")
+//   .split(",")
+//   .map((s) => s.trim());
+  app.use(
+    cors({
+      origin: true, // 何でも許可
+      credentials: true,
+    })
+  );
+  
 
 // クエリ/ボディの重複キー汚染を防止（?role=user&role=admin対策）
 app.use(hpp());
